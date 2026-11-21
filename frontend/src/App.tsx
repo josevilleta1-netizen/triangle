@@ -4,6 +4,7 @@ import { LoginPage } from './components/LoginPage';
 import { PinLockModal } from './components/PinLockModal';
 import { Shell } from './components/Shell';
 import { DashboardView } from './components/DashboardView';
+import { InventoryView } from './components/InventoryView';
 
 function AppContent() {
   const { isAuthenticated, isLoading, isTerminalLocked } = useAuth();
@@ -31,11 +32,12 @@ function AppContent() {
       {isTerminalLocked && <PinLockModal />}
       <Shell currentView={currentView} onNavigate={setCurrentView}>
         {currentView === 'dashboard' && <DashboardView onNavigate={setCurrentView} />}
-        {currentView !== 'dashboard' && (
+        {currentView === 'inventory' && <InventoryView />}
+        {currentView !== 'dashboard' && currentView !== 'inventory' && (
           <div className="bg-surface-container-lowest p-8 rounded-3xl shadow-cloud-ambient border border-surface-container/30">
             <h2 className="text-xl font-extrabold text-on-surface capitalize">Módulo: {currentView}</h2>
             <p className="text-xs text-on-surface-variant mt-1">
-              Este módulo se conectará en las fases posteriores (Fase 4: Inventario, Fase 5: POS, Fase 6: Caja).
+              Este módulo se conectará en las fases posteriores (Fase 5: POS, Fase 6: Caja, Fase 7: Reportes).
             </p>
           </div>
         )}

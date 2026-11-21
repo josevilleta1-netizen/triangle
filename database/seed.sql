@@ -57,15 +57,13 @@ INSERT INTO role_permissions (role_id, permission_id) VALUES
 ON CONFLICT DO NOTHING;
 
 -- 3. USUARIOS DEMO INICIALES
--- Password 'Admin123*' con hash bcrypt válido:
--- $2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6x8ekEYEbG52EOTyFq7m
--- PIN de caja '1234' con hash bcrypt:
--- $2b$10$qR6q7B0gKz7.Tj5QeH1bI.kR1/bZ9y6rP4N4O8mH2h4b2E4a8c4uK (o gen_salt)
+-- Password 'Admin123*' con hash bcrypt verificado: $2a$10$ar0jGOgYW0FOH2bsdHCLJu2R1goyxHTOfSR3emNRWvNv9tUOJ5Bjy
+-- PIN de caja '1234' con hash bcrypt verificado: $2a$10$dKMfjzDmvY1fRz.h0knVKeQCZGVRxa/igFuMVypjOuvIe76CrmzY2
 INSERT INTO users (id, email, username, password_hash, pos_pin_hash, full_name, role_id) VALUES
-    ('a0000000-0000-0000-0000-000000000001', 'admin@triangle.com', 'admin', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6x8ekEYEbG52EOTyFq7m', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6x8ekEYEbG52EOTyFq7m', 'María Vargas', 'ADMINISTRADOR'),
-    ('a0000000-0000-0000-0000-000000000002', 'cajero@triangle.com', 'cajero1', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6x8ekEYEbG52EOTyFq7m', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6x8ekEYEbG52EOTyFq7m', 'Carlos Mendoza', 'CAJERO'),
-    ('a0000000-0000-0000-0000-000000000003', 'almacen@triangle.com', 'almacen1', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6x8ekEYEbG52EOTyFq7m', '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6x8ekEYEbG52EOTyFq7m', 'Jorge Pardo', 'ALMACENISTA')
-ON CONFLICT (email) DO NOTHING;
+    ('a0000000-0000-0000-0000-000000000001', 'admin@triangle.com', 'admin', '$2a$10$ar0jGOgYW0FOH2bsdHCLJu2R1goyxHTOfSR3emNRWvNv9tUOJ5Bjy', '$2a$10$dKMfjzDmvY1fRz.h0knVKeQCZGVRxa/igFuMVypjOuvIe76CrmzY2', 'María Vargas', 'ADMINISTRADOR'),
+    ('a0000000-0000-0000-0000-000000000002', 'cajero@triangle.com', 'cajero1', '$2a$10$ar0jGOgYW0FOH2bsdHCLJu2R1goyxHTOfSR3emNRWvNv9tUOJ5Bjy', '$2a$10$dKMfjzDmvY1fRz.h0knVKeQCZGVRxa/igFuMVypjOuvIe76CrmzY2', 'Carlos Mendoza', 'CAJERO'),
+    ('a0000000-0000-0000-0000-000000000003', 'almacen@triangle.com', 'almacen1', '$2a$10$ar0jGOgYW0FOH2bsdHCLJu2R1goyxHTOfSR3emNRWvNv9tUOJ5Bjy', '$2a$10$dKMfjzDmvY1fRz.h0knVKeQCZGVRxa/igFuMVypjOuvIe76CrmzY2', 'Jorge Pardo', 'ALMACENISTA')
+ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash, pos_pin_hash = EXCLUDED.pos_pin_hash;
 
 -- 4. CAJA REGISTRADORA PRINCIPAL
 INSERT INTO cash_registers (id, name, branch_name) VALUES

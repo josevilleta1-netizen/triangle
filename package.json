@@ -1,0 +1,29 @@
+{
+  "name": "triangle-monorepo",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "description": "ERP / POS Monolith for Tienda de Barrio S.A.S. - Bogota, Colombia",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev:backend & npm run dev:frontend",
+    "dev:backend": "npm --prefix backend run start:dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "test": "npm --prefix backend run test && npm --prefix frontend run test",
+    "lint": "npm --prefix backend run lint && npm --prefix frontend run lint"
+  },
+  "keywords": [
+    "erp",
+    "pos",
+    "tienda-de-barrio",
+    "colombia",
+    "nestjs",
+    "react",
+    "typescript"
+  ],
+  "author": "Tienda de Barrio S.A.S.",
+  "license": "UNLICENSED"
+}
